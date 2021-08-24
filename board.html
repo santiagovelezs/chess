@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess</title>
+
+    <script src="https://kit.fontawesome.com/138b07968d.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="js/board.js"></script>
+</head>
+<body>
+   
+    <div class="ct">            
+        <table class="chess">  
+            <tr>
+                <th><i class="far fa-user fa-2x"></i></th>
+                <th id="player01" colspan="8" style="text-align: left; padding: 1em;"><i class="far fa-user"></i>Player</th>
+            </tr>            
+            <tr>
+                <th></th>
+                <th>a</th>
+                <th>b</th>
+                <th>c</th>
+                <th>d</th>
+                <th>e</th>
+                <th>f</th>
+                <th>g</th>
+                <th>h</th>
+            </tr>         
+            <tr>
+                <th>8</th>
+                <td id="a8" ondrop="dropFn(event)" ondragover="dragOverfn(event)"><i id="t1n" class="fas fa-chess-rook fa-3x" draggable="true" ondragstart="dragFn(event)"></i></td>
+                <td id="b8" ondrop="dropFn(event)" ondragover="dragOverfn(event)"><i id="c1n" class="fas fa-chess-knight fa-3x" draggable="true" ondragstart="dragFn(event)"></i></td>
+                <td id="c8" ondrop="dropFn(event)" ondragover="dragOverfn(event)"><i id="a1n" class="fas fa-chess-bishop fa-3x" draggable="true" ondragstart="dragFn(event)"></i></td>
+                <td id="d8" ondrop="dropFn(event)" ondragover="dragOverfn(event)"><i id="qn" class="fas fa-chess-queen fa-3x" draggable="true" ondragstart="dragFn(event)"></i></td>
+                <td id="e8" ondrop="dropFn(event)" ondragover="dragOverfn(event)"><i id="kn" class="fas fa-chess-king fa-3x" draggable="true" ondragstart="dragFn(event)"></i></td>
+                <td id="f8" ondrop="dropFn(event)" ondragover="dragOverfn(event)"><i id="a2n" class="fas fa-chess-bishop fa-3x" draggable="true" ondragstart="dragFn(event)"></i></td>
+                <td id="g8" ondrop="dropFn(event)" ondragover="dragOverfn(event)"><i id="c2n" class="fas fa-chess-knight fa-3x" draggable="true" ondragstart="dragFn(event)"></i></td>
+                <td id="h8" ondrop="dropFn(event)" ondragover="dragOverfn(event)"><i id="t2n" class="fas fa-chess-rook fa-3x" draggable="true" ondragstart="dragFn(event)"></i></td>
+            </tr>
+            <tr>
+                <th>7</th>
+                <td id="a7" ondrop="dropFn(event)" ondragover="dragOverfn(event)"><i id="p1n" class="fas fa-chess-pawn fa-3x" draggable="true" ondragstart="dragFn(event)"></i></td>
+                <td id="b7" ondrop="dropFn(event)" ondragover="dragOverfn(event)"><i id="p2n" class="fas fa-chess-pawn fa-3x" draggable="true" ondragstart="dragFn(event)"></i></td>
+                <td id="c7" ondrop="dropFn(event)" ondragover="dragOverfn(event)"><i id="p3n" class="fas fa-chess-pawn fa-3x" draggable="true" ondragstart="dragFn(event)"></i></td>
+                <td id="d7" ondrop="dropFn(event)" ondragover="dragOverfn(event)"><i id="p4n" class="fas fa-chess-pawn fa-3x" draggable="true" ondragstart="dragFn(event)"></i></td>
+                <td id="e7" ondrop="dropFn(event)" ondragover="dragOverfn(event)"><i id="p5n" class="fas fa-chess-pawn fa-3x" draggable="true" ondragstart="dragFn(event)"></i></td>
+                <td id="f7" ondrop="dropFn(event)" ondragover="dragOverfn(event)"><i id="p6n" class="fas fa-chess-pawn fa-3x" draggable="true" ondragstart="dragFn(event)"></i></td>
+                <td id="g7" ondrop="dropFn(event)" ondragover="dragOverfn(event)"><i id="p7n" class="fas fa-chess-pawn fa-3x" draggable="true" ondragstart="dragFn(event)"></i></td>
+                <td id="h7" ondrop="dropFn(event)" ondragover="dragOverfn(event)"><i id="p8n" class="fas fa-chess-pawn fa-3x" draggable="true" ondragstart="dragFn(event)"></i></td>
+            </tr>
+            <tr>
+                <th>6</th>
+                <td id="a6" ondrop="dropFn(event)" ondragover="dragOverfn(event)"></td>
+                <td id="b6" ondrop="dropFn(event)" ondragover="dragOverfn(event)"></td>
+                <td id="c6" ondrop="dropFn(event)" ondragover="dragOverfn(event)"></td>
+                <td id="d6" ondrop="dropFn(event)" ondragover="dragOverfn(event)"></td>
+                <td id="e6" ondrop="dropFn(event)" ondragover="dragOverfn(event)"></td>
+                <td id="f6" ondrop="dropFn(event)" ondragover="dragOverfn(event)"></td>
+                <td id="g6" ondrop="dropFn(event)" ondragover="dragOverfn(event)"></td>
+                <td id="h6" ondrop="dropFn(event)" ondragover="dragOverfn(event)"></td>
+            </tr>
+            <tr>
+                <th>5</th>
+                <td id="a5" ondrop="dropFn(event)" ondragover="dragOverfn(event)"></td>
+                <td id="b5" ondrop="dropFn(event)" ondragover="dragOverfn(event)"></td>
+                <td id="c5" ondrop="dropFn(event)" ondragover="dragOverfn(event)"></td>
+                <td id="d5" ondrop="dropFn(event)" ondragover="dragOverfn(event)"></td>
+                <td id="e5" ondrop="dropFn(event)" ondragover="dragOverfn(event)"></td>
+                <td id="f5" ondrop="dropFn(event)" ondragover="dragOverfn(event)"></td>
+                <td id="g5" ondrop="dropFn(event)" ondragover="dragOverfn(event)"></td>
+                <td id="h5" ondrop="dropFn(event)" ondragover="dragOverfn(event)"></td>
+            </tr>
+            <tr>
+                <th>4</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>                
+            </tr>
+            <tr>
+                <th>3</th>
+                <td ondragover="dragOverfn(event)"></td>
+                <td ondragover="dragOverfn(event)"></td>
+                <td ondragover="dragOverfn(event)"></td>
+                <td ondragover="dragOverfn(event)"></td>
+                <td ondragover="dragOverfn(event)"></td>
+                <td ondragover="dragOverfn(event)"></td>
+                <td ondragover="dragOverfn(event)"></td>
+                <td ondragover="dragOverfn(event)"></td>
+            </tr>
+            <tr>
+                <th>2</th>
+                <td><i style="color: white;" class="fas fa-chess-pawn fa-3x" draggable="true"></i></td>
+                <td><i style="color: white;" class="fas fa-chess-pawn fa-3x" draggable="true"></i></td>
+                <td><i style="color: white;" class="fas fa-chess-pawn fa-3x" draggable="true"></i></td>
+                <td><i style="color: white;" class="fas fa-chess-pawn fa-3x" draggable="true"></i></td>
+                <td><i style="color: white;" class="fas fa-chess-pawn fa-3x" draggable="true"></i></td>
+                <td><i style="color: white;" class="fas fa-chess-pawn fa-3x" draggable="true"></i></td>
+                <td><i style="color: white;" class="fas fa-chess-pawn fa-3x" draggable="true"></i></td>
+                <td><i style="color: white;" class="fas fa-chess-pawn fa-3x" draggable="true"></i></td>               
+            </tr>
+            <tr>
+                <th>1</th>
+                <td><i style="color: white;" class="fas fa-chess-rook fa-3x" draggable="true"></i></td>
+                <td><i style="color: white;" class="fas fa-chess-knight fa-3x" draggable="true"></i></td>
+                <td><i style="color: white;" class="fas fa-chess-bishop fa-3x" draggable="true"></i></td>
+                <td><i style="color: white;" class="fas fa-chess-queen fa-3x" draggable="true"></i></td>
+                <td><i style="color: white;" class="fas fa-chess-king fa-3x" draggable="true"></i></td>
+                <td><i style="color: white;" class="fas fa-chess-bishop fa-3x" draggable="true"></i></td>
+                <td><i style="color: white;" class="fas fa-chess-knight fa-3x" draggable="true"></i></td>
+                <td><i style="color: white;" class="fas fa-chess-rook fa-3x" draggable="true"></i></td>                
+            </tr>               
+            <tr>
+                <th><i class="far fa-user fa-2x"></i></th>
+                <th colspan="8" style="text-align: left; padding: 1em;">Player</th>
+            </tr>       
+        </table>        
+        <div style="display: block;">            
+            <div style="margin: 7em; height: 25%; background-color: white;">
+                <input style="margin-top: 75%; margin-left: auto; margin-right: auto;" type="text" placeholder="Escribe tu mensaje">
+            </div>
+            <h3>Movimientos</h3>  
+            <div style="margin: 1em 7em; height: 12%; background-color: white;"></div>          
+        </div>            
+    </div>
+    <script>        
+        window.onload = showName();
+      </script>
+</body>
+</html>

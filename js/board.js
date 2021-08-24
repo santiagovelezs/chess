@@ -1,0 +1,14 @@
+class board
+{
+    constructor()
+    {
+
+    }
+
+    reset()
+    {
+        
+    }
+
+    
+}
