@@ -27,10 +27,18 @@ function dropFn(ev)
     ev.preventDefault();      
     var data = ev.dataTransfer.getData("text");
     var from = ev.dataTransfer.getData("from");
+    let target = ev.target;
+    if (true)
+    {
+        console.log("Target: "+target.class);
+    }
+    
     console.log("dropFn: from "+from)
     console.log("dropFn: data "+ev.target.id)
     if(board.validMov(from, ev.target.id)) 
     {
+        if(ev.target.hasChildNodes())
+            ev.target.removeChild(ev.target.firstChild);
         ev.target.appendChild(document.getElementById(data));        
         board.movePiece(from, ev.target.id);
     }
@@ -50,14 +58,14 @@ class Board
     constructor()
     {
         this.matriz = [            
-            "t1n","c1n","a1n","qn","kn","a2n","c2n","t2n",
+            "tn1","cn1","an1","qn","kn","an2","cn2","tn2",
             "pn1","pn2","pn3","pn4","pn5","pn6","pn7","pn8",
             "","","","","","","","",
             "","","","","","","","",
             "","","","","","","","",
             "","","","","","","","",
             "pb1","pb2","pb3","pb4","pb5","pb6","pb7","pb8",
-            "t1b","c1b","a1b","qb","kb","a2b","c2b","t2b"
+            "tb1","cb1","ab1","qb","kb","ab2","cb2","tb2"
         ];
     }
 
@@ -80,7 +88,29 @@ class Board
         if(p.indexOf("pn") >= 0)
         {
             if(t-f == 8 | (f<=15) & (t-f==16))
+            {
+                if(this.matriz[t]=="")
+                    return true;                
+            }            
+            if((t-f) >= 7 & (t-f) <=9 & this.matriz[t].indexOf("b")>=0 & ((Math.floor(f/8) + 1) == Math.floor(t/8)))
+            {
+                console.log("pawn /");
                 return true;
+            }
+            else
+            {
+                console.log("!pawn /")
+            }               
+                
+            return false;
+        }
+        if(p.indexOf("pb") >= 0)
+        {
+            if(f-t == 8 | (f>=48) & (f-t==16))
+            {
+                if(this.matriz[t]=="")
+                    return true;
+            }                
             return false;
         }
         if(p.indexOf("tn") >= 0)
@@ -91,41 +121,41 @@ class Board
 
     reset()
     {
-        document.getElementById("a7").appendChild(document.getElementById("p1n"));
-        document.getElementById("b7").appendChild(document.getElementById("p2n"));
-        document.getElementById("c7").appendChild(document.getElementById("p3n"));
-        document.getElementById("d7").appendChild(document.getElementById("p4n"));
-        document.getElementById("e7").appendChild(document.getElementById("p5n"));
-        document.getElementById("f7").appendChild(document.getElementById("p6n"));
-        document.getElementById("g7").appendChild(document.getElementById("p7n"));
-        document.getElementById("h7").appendChild(document.getElementById("p8n"));
+        document.getElementById("0").appendChild(document.getElementById("tn1"));
+        document.getElementById("1").appendChild(document.getElementById("cn1"));
+        document.getElementById("2").appendChild(document.getElementById("an1"));
+        document.getElementById("3").appendChild(document.getElementById("qn"));
+        document.getElementById("4").appendChild(document.getElementById("kn"));
+        document.getElementById("5").appendChild(document.getElementById("an2"));
+        document.getElementById("6").appendChild(document.getElementById("cn2"));
+        document.getElementById("7").appendChild(document.getElementById("tn2"));
 
-        document.getElementById("a8").appendChild(document.getElementById("t1n"));
-        document.getElementById("b8").appendChild(document.getElementById("c1n"));
-        document.getElementById("c8").appendChild(document.getElementById("a1n"));
-        document.getElementById("d8").appendChild(document.getElementById("qn"));
-        document.getElementById("e8").appendChild(document.getElementById("kn"));
-        document.getElementById("f8").appendChild(document.getElementById("a2n"));
-        document.getElementById("g8").appendChild(document.getElementById("c2n"));
-        document.getElementById("h8").appendChild(document.getElementById("t2n"));
+        document.getElementById("8").appendChild(document.getElementById("pn1"));
+        document.getElementById("9").appendChild(document.getElementById("pn2"));
+        document.getElementById("10").appendChild(document.getElementById("pn3"));
+        document.getElementById("11").appendChild(document.getElementById("pn4"));
+        document.getElementById("12").appendChild(document.getElementById("pn5"));
+        document.getElementById("13").appendChild(document.getElementById("pn6"));
+        document.getElementById("14").appendChild(document.getElementById("pn7"));
+        document.getElementById("15").appendChild(document.getElementById("pn8"));        
 
-        document.getElementById("a2").appendChild(document.getElementById("p1b"));
-        document.getElementById("b2").appendChild(document.getElementById("p2b"));
-        document.getElementById("c2").appendChild(document.getElementById("p3b"));
-        document.getElementById("d2").appendChild(document.getElementById("p4b"));
-        document.getElementById("e2").appendChild(document.getElementById("p5b"));
-        document.getElementById("f2").appendChild(document.getElementById("p6b"));
-        document.getElementById("g2").appendChild(document.getElementById("p7b"));
-        document.getElementById("h2").appendChild(document.getElementById("p8b"));
+        document.getElementById("48").appendChild(document.getElementById("pb1"));
+        document.getElementById("49").appendChild(document.getElementById("pb2"));
+        document.getElementById("50").appendChild(document.getElementById("pb3"));
+        document.getElementById("51").appendChild(document.getElementById("pb4"));
+        document.getElementById("52").appendChild(document.getElementById("pb5"));
+        document.getElementById("53").appendChild(document.getElementById("pb6"));
+        document.getElementById("54").appendChild(document.getElementById("pb7"));
+        document.getElementById("55").appendChild(document.getElementById("pb8"));
 
-        document.getElementById("a1").appendChild(document.getElementById("t1b"));
-        document.getElementById("b1").appendChild(document.getElementById("c1b"));
-        document.getElementById("c1").appendChild(document.getElementById("a1b"));
-        document.getElementById("d1").appendChild(document.getElementById("qb"));
-        document.getElementById("e1").appendChild(document.getElementById("kb"));
-        document.getElementById("f1").appendChild(document.getElementById("a2b"));
-        document.getElementById("g1").appendChild(document.getElementById("c2b"));
-        document.getElementById("h1").appendChild(document.getElementById("t2b"));
+        document.getElementById("56").appendChild(document.getElementById("tb1"));
+        document.getElementById("57").appendChild(document.getElementById("cb1"));
+        document.getElementById("58").appendChild(document.getElementById("ab1"));
+        document.getElementById("59").appendChild(document.getElementById("qb"));
+        document.getElementById("60").appendChild(document.getElementById("kb"));
+        document.getElementById("61").appendChild(document.getElementById("ab2"));
+        document.getElementById("62").appendChild(document.getElementById("cb2"));
+        document.getElementById("63").appendChild(document.getElementById("tb2"));
     }  
 
     isEmpty(cell)
