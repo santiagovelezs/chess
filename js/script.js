@@ -118,12 +118,16 @@ class Board
         let p = this.matriz[f];
         console.log("p,f,t "+p,f,t)
         if(this.validMov(f,t))
-        {           
+        { 
+            if(this.nmov % 8 == 0)
+            {                
+                this.movements += "<br>";                                
+            }          
             if(this.nmov % 2 == 0)
             {
                 this.jug++;
                 this.movements += "<b>"+this.jug+".</b> ";                                
-            }
+            }            
             this.nmov++;
                
             this.movements += document.getElementById(t).getAttribute("name") + " ";
@@ -163,7 +167,119 @@ class Board
         }
         if(p.indexOf("tn") >= 0)
         {
-
+            if(Math.abs(t-f)%8==0)
+            {
+                let n = Math.floor(Math.abs(t-f)/8);
+                for(let i=0; i<n-1; i++)
+                {
+                    if((t*1)<(f*1))
+                    {
+                        if(this.matriz[((f*1)-((i+1)*8))] != "")
+                            return false;
+                    }
+                    else
+                    {
+                        console.log("t>f: "+this.matriz[(((i+1)*8)+(f*1))])
+                        if(this.matriz[(((i+1)*8)+(f*1))] != "")
+                            return false;
+                    }
+                    
+                }
+                if(this.matriz[t].indexOf("n")>=0)
+                {
+                    return false;
+                }
+                return true;
+            }
+            else
+            {
+                if(Math.floor(t/8) == Math.floor(f/8))
+                {
+                    if(t>f)
+                    {
+                        console.log("f: "+f);
+                        for(let i=++f; i<t; i++)
+                        {
+                            console.log("fi: "+i);
+                            if(this.matriz[i]!="")
+                                return false;
+                        }
+                    }
+                    if(t<f)
+                    {
+                        console.log("f: "+f);
+                        for(let i=--f; i>t; i--)
+                        {
+                            console.log("fi: "+i);
+                            if(this.matriz[i]!="")
+                                return false;
+                        }
+                    }
+                    return true;                    
+                }
+                else
+                {
+                    return false;
+                }                
+            }
+        }        
+        if(p.indexOf("tb") >= 0)
+        {
+            if(Math.abs(t-f)%8==0)
+            {
+                let n = Math.floor(Math.abs(t-f)/8);
+                for(let i=0; i<n-1; i++)
+                {
+                    if((t*1)<(f*1))
+                    {
+                        if(this.matriz[((f*1)-((i+1)*8))] != "")
+                            return false;
+                    }
+                    else
+                    {
+                        console.log("t>f: "+this.matriz[(((i+1)*8)+(f*1))])
+                        if(this.matriz[(((i+1)*8)+(f*1))] != "")
+                            return false;
+                    }
+                    
+                }
+                if(this.matriz[t].indexOf("b")>=0)
+                {
+                    return false;
+                }
+                return true;
+            }
+            else
+            {
+                if(Math.floor(t/8) == Math.floor(f/8))
+                {
+                    if(t>f)
+                    {
+                        console.log("f: "+f);
+                        for(let i=++f; i<t; i++)
+                        {
+                            console.log("fi: "+i);
+                            if(this.matriz[i]!="")
+                                return false;
+                        }
+                    }
+                    if(t<f)
+                    {
+                        console.log("f: "+f);
+                        for(let i=--f; i>t; i--)
+                        {
+                            console.log("fi: "+i);
+                            if(this.matriz[i]!="")
+                                return false;
+                        }
+                    }
+                    return true;                    
+                }
+                else
+                {
+                    return false;
+                }                
+            }
         }
     }
 
