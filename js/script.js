@@ -139,148 +139,117 @@ class Board
         
     }
 
+    validPawnN(f,t)
+    {
+        if(t-f == 8 | (f<=15) & (t-f==16) & (this.matriz[t-8]==""))
+        {
+            if(this.matriz[t]=="")
+                return true;                
+        }            
+        if((t-f) == 7 | (t-f) == 9 & this.matriz[t].indexOf("b")>=0 & ((Math.floor(f/8) + 1) == Math.floor(t/8)))                          
+            return true;                         
+            
+        return false;
+    }
+
+    validPawnB(f,t)
+    {
+        if(f-t == 8 | (f>=48) & (f-t==16) & (this.matriz[f-8]==""))
+        {
+            if(this.matriz[t]=="")
+                return true;
+        } 
+        if((f-t) == 7 | (f-t) == 9 & this.matriz[t].indexOf("n")>=0 & ((Math.floor(f/8) - 1) == Math.floor(t/8)))                          
+            return true;                
+        return false;
+    }
+
+    validTorre(f,t,c)
+    {
+        if(Math.abs(t-f)%8==0)
+        {
+            let n = Math.floor(Math.abs(t-f)/8);
+            for(let i=0; i<n-1; i++)
+            {
+                if((t*1)<(f*1))
+                {
+                    if(this.matriz[((f*1)-((i+1)*8))] != "")
+                        return false;
+                }
+                else
+                {
+                    console.log("t>f: "+this.matriz[(((i+1)*8)+(f*1))])
+                    if(this.matriz[(((i+1)*8)+(f*1))] != "")
+                        return false;
+                }
+                
+            }
+            if(this.matriz[t].indexOf(c)>=0)
+            {
+                return false;
+            }
+            return true;
+        }
+        else
+        {
+            if(Math.floor(t/8) == Math.floor(f/8))
+            {
+                if(this.matriz[t].indexOf(c)>=0)
+                    return false;
+                if(t>f)
+                {
+                    console.log("f: "+f);
+                    for(let i=++f; i<t; i++)
+                    {
+                        console.log("fi: "+i);
+                        if(this.matriz[i]!="")
+                            return false;
+                    }
+                }
+                if(t<f)
+                {
+                    console.log("f: "+f);
+                    for(let i=--f; i>t; i--)
+                    {
+                        console.log("fi: "+i);
+                        if(this.matriz[i]!="")
+                            return false;
+                    }
+                }
+                return true;                    
+            }
+            else
+            {
+                return false;
+            }                
+        }
+    }
+    
+    validCab(f,t)
+    {
+        let filaF = Math.floor(f/8)+1;
+        let colF = (f-filaF*7)+1;
+        console.log("Fila From: "+filaF);
+        console.log("Col From: "+colF);
+    }
+
     validMov(f,t)
     {
         let p = this.matriz[f];
-        if(p.indexOf("pn") >= 0)
-        {
-            if(t-f == 8 | (f<=15) & (t-f==16) & (this.matriz[t-8]==""))
-            {
-                if(this.matriz[t]=="")
-                    return true;                
-            }            
-            if((t-f) == 7 | (t-f) == 9 & this.matriz[t].indexOf("b")>=0 & ((Math.floor(f/8) + 1) == Math.floor(t/8)))                          
-                return true;                         
-                
-            return false;
-        }
-        if(p.indexOf("pb") >= 0)
-        {
-            if(f-t == 8 | (f>=48) & (f-t==16) & (this.matriz[f-8]==""))
-            {
-                if(this.matriz[t]=="")
-                    return true;
-            } 
-            if((f-t) == 7 | (f-t) == 9 & this.matriz[t].indexOf("n")>=0 & ((Math.floor(f/8) - 1) == Math.floor(t/8)))                          
-                return true;                
-            return false;
-        }
-        if(p.indexOf("tn") >= 0)
-        {
-            if(Math.abs(t-f)%8==0)
-            {
-                let n = Math.floor(Math.abs(t-f)/8);
-                for(let i=0; i<n-1; i++)
-                {
-                    if((t*1)<(f*1))
-                    {
-                        if(this.matriz[((f*1)-((i+1)*8))] != "")
-                            return false;
-                    }
-                    else
-                    {
-                        console.log("t>f: "+this.matriz[(((i+1)*8)+(f*1))])
-                        if(this.matriz[(((i+1)*8)+(f*1))] != "")
-                            return false;
-                    }
-                    
-                }
-                if(this.matriz[t].indexOf("n")>=0)
-                {
-                    return false;
-                }
-                return true;
-            }
-            else
-            {
-                if(Math.floor(t/8) == Math.floor(f/8))
-                {
-                    if(t>f)
-                    {
-                        console.log("f: "+f);
-                        for(let i=++f; i<t; i++)
-                        {
-                            console.log("fi: "+i);
-                            if(this.matriz[i]!="")
-                                return false;
-                        }
-                    }
-                    if(t<f)
-                    {
-                        console.log("f: "+f);
-                        for(let i=--f; i>t; i--)
-                        {
-                            console.log("fi: "+i);
-                            if(this.matriz[i]!="")
-                                return false;
-                        }
-                    }
-                    return true;                    
-                }
-                else
-                {
-                    return false;
-                }                
-            }
-        }        
+        if(p.indexOf("pn") >= 0)        
+            return this.validPawnN(f,t);
+        
+        if(p.indexOf("pb") >= 0)        
+            return this.validPawnB(f,t);
+        
+        if(p.indexOf("tn") >= 0)        
+            return this.validTorre(f,t, "n");
+              
         if(p.indexOf("tb") >= 0)
-        {
-            if(Math.abs(t-f)%8==0)
-            {
-                let n = Math.floor(Math.abs(t-f)/8);
-                for(let i=0; i<n-1; i++)
-                {
-                    if((t*1)<(f*1))
-                    {
-                        if(this.matriz[((f*1)-((i+1)*8))] != "")
-                            return false;
-                    }
-                    else
-                    {
-                        console.log("t>f: "+this.matriz[(((i+1)*8)+(f*1))])
-                        if(this.matriz[(((i+1)*8)+(f*1))] != "")
-                            return false;
-                    }
-                    
-                }
-                if(this.matriz[t].indexOf("b")>=0)
-                {
-                    return false;
-                }
-                return true;
-            }
-            else
-            {
-                if(Math.floor(t/8) == Math.floor(f/8))
-                {
-                    if(t>f)
-                    {
-                        console.log("f: "+f);
-                        for(let i=++f; i<t; i++)
-                        {
-                            console.log("fi: "+i);
-                            if(this.matriz[i]!="")
-                                return false;
-                        }
-                    }
-                    if(t<f)
-                    {
-                        console.log("f: "+f);
-                        for(let i=--f; i>t; i--)
-                        {
-                            console.log("fi: "+i);
-                            if(this.matriz[i]!="")
-                                return false;
-                        }
-                    }
-                    return true;                    
-                }
-                else
-                {
-                    return false;
-                }                
-            }
-        }
+            return this.validTorre(f,t, "b");
+
+        if(p.indexOf("cb") >= 0)
+            return this.validCab(f,t);
     }
 
     reset()
