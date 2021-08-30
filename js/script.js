@@ -19,7 +19,7 @@ function dragFn(ev)
 {
     ev.dataTransfer.setData("text", ev.target.id);
     ev.dataTransfer.setData("from", ev.target.parentElement.id);
-    console.log("dragFn: ev.target.id: "+ev.target.id, "ev.target: "+ev.target.parentElement.id)
+    //console.log("dragFn: ev.target.id: "+ev.target.id, "ev.target: "+ev.target.parentElement.id)
 }
 
 function dropFn(ev)
@@ -34,17 +34,22 @@ function dropFn(ev)
         to = target.parentElement;
         //console.log(document.getElementById(target.id).tagName);
         console.log("Target: "+target.parentElement.id);
-    }
+    }    
     
-    console.log("dropFn: from "+from)
-    console.log("dropFn: data "+ev.target.id)
     if(board.validMov(from, to.id)) 
     {
         if(to.hasChildNodes())
-            to.removeChild(to.firstChild);
+        {
+            document.getElementById("ff").appendChild(document.getElementById(to.firstChild.id));
+            //to.removeChild(to.firstChild);            
+        }
+            
         to.appendChild(document.getElementById(data));        
         board.movePiece(from, to.id);
     }
+
+    console.log("f "+from);
+    console.log("t "+to.id);
     
 }
 
@@ -116,7 +121,7 @@ class Board
     movePiece(f,t)
     {
         let p = this.matriz[f];
-        console.log("p,f,t "+p,f,t)
+        console.log("p,f,t "+p,f,t);
         if(this.validMov(f,t))
         { 
             if(this.nmov % 8 == 0)
@@ -228,9 +233,35 @@ class Board
     validCab(f,t)
     {
         let filaF = Math.floor(f/8)+1;
-        let colF = (f-filaF*7)+1;
+        let colF = f-((filaF-1)*7)+1-(filaF-1);
         console.log("Fila From: "+filaF);
         console.log("Col From: "+colF);
+        let filaT = Math.floor(t/8)+1;
+        let colT = t-((filaT-1)*7)+1-(filaT-1);
+        console.log("Fila To: "+filaT);
+        console.log("Col To: "+colT);
+        let df = Math.abs(filaF-filaT);
+        let dc = Math.abs(colF-colT);
+        console.log("df, dc . "+df,dc);
+
+        if((df==1 & dc==2) | (df==2 & dc==1))
+        {
+            return true;
+        }
+
+        return false;
+
+    }
+
+    validAlf(f,t)
+    {
+        let filaF = Math.floor(f/8)+1;
+        let colF = f-((filaF-1)*7)+1-(filaF-1);        
+        let filaT = Math.floor(t/8)+1;
+        let colT = t-((filaT-1)*7)+1-(filaT-1);
+
+        if(Math.abs(filaF-filaT) == Math.abs(colF-colT))
+            return true;
     }
 
     validMov(f,t)
@@ -250,6 +281,15 @@ class Board
 
         if(p.indexOf("cb") >= 0)
             return this.validCab(f,t);
+        
+        if(p.indexOf("cn") >= 0)
+            return this.validCab(f,t);
+        
+        if(p.indexOf("an") >= 0)
+            return this.validAlf(f,t);
+    
+        if(p.indexOf("ab") >= 0)
+            return this.validAlf(f,t);
     }
 
     reset()
